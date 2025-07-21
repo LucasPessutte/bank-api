@@ -27,10 +27,10 @@ API desenvolvida em NestJS para controle de usuários, contas bancárias e trans
 ## ⚙️ Instalação
 
 ```bash
-docker-compose up -d
 git clone https://github.com/LucasPessutte/bank-api.git
 cd bank-api
 pnpm install
+docker-compose up -d
 ```
 
 Crie um arquivo `.env` com as variáveis:
@@ -45,7 +45,7 @@ JWT_EXPIRES_IN=3600
 Rode a migration:
 
 ```bash
-npx prisma migrate dev --name init
+npx prisma migrate dev
 ```
 
 Inicie o projeto:
