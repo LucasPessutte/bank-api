@@ -9,6 +9,8 @@ import { configLogger } from './config/config.logger';
 import { LoggerModule } from 'nestjs-pino';
 import { LoggingMiddleware } from './middleware/logger.middleware';
 import { UsersModule } from './users/users.module';
+import { AccountsModule } from './accounts/accounts.module';
+import { TransactionsModule } from './transactions/transactions.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { UsersModule } from './users/users.module';
     }),
     AuthModule,
     UsersModule,
+    AccountsModule,
+    TransactionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,10 +1,26 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthResponseDto } from './dto/auth-response-dto';
 import { BadRequestDto } from 'src/common/dtos/bad-request.dto';
 import { UnauthorizedRequestDto } from 'src/common/dtos/unauthorizated-request.dto';
 import { AuthLoginDto } from './dto/auth-login.dto';
+import { AuthValidateResponseDto } from './dto/auth-validate-response.dto';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth-guard';
+
+export interface AuthenticatedUser {
+  sub: string;
+  name?: string;
+}
 
 @Controller('auth')
 export class AuthController {
@@ -32,5 +48,15 @@ export class AuthController {
   })
   async login(@Body() authLoginDto: AuthLoginDto): Promise<AuthResponseDto> {
     return await this.authService.login(authLoginDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('validate-token')
+  @ApiBearerAuth()
+  validateToken(@Req() req: any): AuthValidateResponseDto {
+    return {
+      sub: req.user.sub,
+      name: req.user.name,
+    };
   }
 }

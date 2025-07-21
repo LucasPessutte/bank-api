@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     restart: always
-    container_name: maestro-db
+    container_name: bank-api-db
     image: mysql:8.0
     volumes:
       - ./mysql-data:/var/lib/mysql
@@ -12,6 +12,6 @@ services:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: bank_api
     ports:
-      - '3306:3306'
+      - '3308:3306'
     expose:
-      - '3306'
+      - '3308'

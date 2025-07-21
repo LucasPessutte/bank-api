@@ -10,5 +10,9 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
+  document: string;
+
+  @IsString()
+  @IsNotEmpty()
   name: string;
 }
