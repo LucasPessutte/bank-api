@@ -27,6 +27,7 @@ API desenvolvida em NestJS para controle de usuários, contas bancárias e trans
 ## ⚙️ Instalação
 
 ```bash
+docker-compose up -d
 git clone https://github.com/LucasPessutte/bank-api.git
 cd bank-api
 pnpm install
