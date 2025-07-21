@@ -1,6 +1,6 @@
 # 💳 Bank API - Teste Técnico
 
-API desenvolvida em NestJS para controle de usuários, contas bancárias e transações financeiras. Projeto realizado como parte de um teste prático para contratação.
+API desenvolvida em NestJS para controle de usuários, contas bancárias e transações financeiras.
 
 ## 🚀 Funcionalidades
 
