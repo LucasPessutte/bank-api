@@ -24,10 +24,10 @@ export class AuthService {
       },
     });
 
+    console.log(user);
     if (!user) {
       throw new UnauthorizedException(ERROR_CREDENTIALS_INCORRECT);
     }
-
     const isValid = await compare(credentials.password, user.password);
 
     if (!isValid) {
