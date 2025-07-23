@@ -1,6 +1,9 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString, IsUUID } from 'class-validator';
 
 export class GetAccountByUserIdResponseDto {
+  @IsUUID()
+  id: string;
+
   @IsString()
   userName: string;
 

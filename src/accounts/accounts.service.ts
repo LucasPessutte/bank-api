@@ -52,6 +52,7 @@ export class AccountsService {
     });
 
     return {
+      id: account.id,
       userId,
       number: account.number,
       balance: account.balance.toNumber(),
@@ -73,6 +74,24 @@ export class AccountsService {
     const sanitizedData = Object.fromEntries(
       Object.entries(data).filter(([, value]) => value !== undefined),
     );
+
+    if (
+      sanitizedData.balance !== undefined &&
+      (typeof sanitizedData.balance !== 'number' ||
+        isNaN(sanitizedData.balance))
+    ) {
+      throw new BadRequestException('Balance must be a valid number');
+    }
+    if (
+      sanitizedData.creditLimit !== undefined &&
+      (typeof sanitizedData.creditLimit !== 'number' ||
+        isNaN(sanitizedData.creditLimit) ||
+        sanitizedData.creditLimit <= 0)
+    ) {
+      throw new BadRequestException(
+        'Credit limit must be a valid number greater than zero',
+      );
+    }
 
     if (Object.keys(sanitizedData).length === 0) {
       return;
@@ -103,6 +122,7 @@ export class AccountsService {
     }
 
     return {
+      id: account.id,
       userName: account.user.name,
       userDocument: account.user.document,
       number: account.number,

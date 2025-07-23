@@ -1,4 +1,4 @@
-import { IsUUID, IsEnum, IsNumber } from 'class-validator';
+import { IsUUID, IsEnum, IsNumber, Min } from 'class-validator';
 import { TransactionType } from '@prisma/client';
 
 export class CreateTransactionDto {
@@ -8,7 +8,12 @@ export class CreateTransactionDto {
   @IsEnum(TransactionType)
   type: TransactionType;
 
-  @IsNumber()
+  @IsNumber({
+    allowNaN: false,
+    allowInfinity: false,
+    maxDecimalPlaces: 2,
+  })
+  @Min(0.01)
   amount: number;
 }
 

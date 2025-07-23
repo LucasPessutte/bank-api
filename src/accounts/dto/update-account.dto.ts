@@ -4,17 +4,27 @@ import {
   IsNumber,
   IsString,
   IsNotEmpty,
+  Min,
 } from 'class-validator';
 
 export class UpdateAccountDto {
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumber({
+    allowNaN: false,
+    allowInfinity: false,
+    maxDecimalPlaces: 2,
+  })
   balance?: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumber({
+    allowNaN: false,
+    allowInfinity: false,
+    maxDecimalPlaces: 2,
+  })
+  @Min(0)
   creditLimit?: number;
 }
 

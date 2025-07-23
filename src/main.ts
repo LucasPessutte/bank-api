@@ -5,16 +5,14 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
 
-import express, {
-  type Request,
-  type Response,
-  type NextFunction,
-} from 'express';
+import { type Request, type Response, type NextFunction } from 'express';
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
 import { configAppEnv } from './config/config.app.env';
 import { configCors } from './config/config.cors';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 export type Teste = 'teste';
 
 /**
@@ -47,6 +45,15 @@ async function bootstrap(): Promise<void> {
 
   const logger = new Logger('Bootstrap');
 
+  const config = new DocumentBuilder()
+    .setTitle('Bank API')
+    .setDescription('API para controle bancário')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document);
+
   app.useLogger(logger);
 
   app.use('/docs-static', (req: Request, res: Response, next: NextFunction) => {
@@ -65,8 +72,6 @@ async function bootstrap(): Promise<void> {
     );
 
     const [username, password] = credentials.split(':');
-
-    console.log(`Username: ${username}, Password: ${password}`);
 
     if (
       username === process.env.DOCS_USER &&

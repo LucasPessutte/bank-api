@@ -60,7 +60,7 @@ export class UsersService {
 
     const hashedPassword = await hash(password, 10);
 
-    await this.prismaService.user.create({
+    const createdUser = await this.prismaService.user.create({
       data: {
         email,
         password: hashedPassword,
@@ -69,6 +69,7 @@ export class UsersService {
       },
     });
     return {
+      id: createdUser.id,
       email,
       name,
       document,

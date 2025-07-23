@@ -1,19 +1,32 @@
-import { IsUUID, IsOptional, IsNumber, IsString } from 'class-validator';
+import { IsUUID, IsOptional, IsNumber, IsString, Min } from 'class-validator';
 
 export class CreateAccountDto {
   @IsUUID()
   userId: string;
 
   @IsOptional()
-  @IsNumber()
+  @IsNumber({
+    allowNaN: false,
+    allowInfinity: false,
+    maxDecimalPlaces: 2,
+  })
+  @Min(0)
   balance?: number;
 
   @IsOptional()
-  @IsNumber()
+  @IsNumber({
+    allowNaN: false,
+    allowInfinity: false,
+    maxDecimalPlaces: 2,
+  })
+  @Min(0)
   creditLimit?: number;
 }
 
 export class CreateAccountResponseDto {
+  @IsUUID()
+  id: string;
+
   @IsUUID()
   userId: string;
 
@@ -21,7 +34,6 @@ export class CreateAccountResponseDto {
   number: string;
 
   @IsOptional()
-  @IsNumber()
   balance?: number;
 
   @IsOptional()
